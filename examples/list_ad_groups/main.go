@@ -20,7 +20,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/ropon/apple-search-ads-go"
+	"github.com/ropon/apple-search-ads-go/asa"
 	"github.com/ropon/apple-search-ads-go/examples/util"
 	"log"
 )

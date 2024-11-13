@@ -21,7 +21,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/ropon/apple-search-ads-go"
+	"github.com/ropon/apple-search-ads-go/asa"
 	"io"
 	"log"
 	"os"
