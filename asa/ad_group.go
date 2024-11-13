@@ -123,7 +123,7 @@ type AdGroup struct {
 	DefaultBidAmount       *Money               `json:"defaultBidAmount"`
 	Deleted                bool                 `json:"deleted"`
 	DisplayStatus          AdGroupDisplayStatus `json:"displayStatus"`
-	EndTime                DateTime             `json:"endTime,omitempty"`
+	EndTime                *DateTime            `json:"endTime,omitempty"`
 	ID                     int64                `json:"id,omitempty"`
 	ModificationTime       DateTime             `json:"modificationTime,omitempty"`
 	Name                   string               `json:"name,omitempty"`
