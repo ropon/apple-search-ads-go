@@ -51,6 +51,18 @@ const (
 	AdGroupDisplayStatusRunning AdGroupDisplayStatus = "RUNNING"
 )
 
+// AdGroupPaymentModel defines model for AdGroupPaymentModel.
+//
+// https://developer.apple.com/documentation/apple_search_ads/adgroup
+type AdGroupPaymentModel string
+
+const (
+	// AdGroupPaymentModelPAYG is for an ad group payment model PAYG.
+	AdGroupPaymentModelPAYG AdGroupPricingModel = "PAYG"
+	// AdGroupPaymentModelLOC is for an ad group payment model LOC.
+	AdGroupPaymentModelLOC AdGroupPricingModel = "LOC"
+)
+
 // AdGroupPricingModel defines model for AdGroupPricingModel.
 //
 // https://developer.apple.com/documentation/apple_search_ads/adgroup
@@ -128,6 +140,7 @@ type AdGroup struct {
 	ModificationTime       DateTime             `json:"modificationTime,omitempty"`
 	Name                   string               `json:"name,omitempty"`
 	OrgID                  int64                `json:"orgId,omitempty"`
+	PaymentModel           AdGroupPaymentModel  `json:"paymentModel"`
 	PricingModel           AdGroupPricingModel  `json:"pricingModel"`
 	ServingStateReasons    []ServingStateReason `json:"servingStateReasons,omitempty"`
 	ServingStatus          AdGroupServingStatus `json:"servingStatus"`

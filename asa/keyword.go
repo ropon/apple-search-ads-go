@@ -52,6 +52,8 @@ const (
 type Keyword struct {
 	AdGroupID        int64            `json:"adGroupId,omitempty"`
 	BidAmount        Money            `json:"bidAmount,omitempty"`
+	CampaignID       int64            `json:"campaignID,omitempty"`
+	CreationTime     DateTime         `json:"creationTime,omitempty"`
 	Deleted          bool             `json:"deleted,omitempty"`
 	ID               int64            `json:"id,omitempty"`
 	MatchType        KeywordMatchType `json:"matchType,omitempty"`
@@ -62,7 +64,7 @@ type Keyword struct {
 
 // KeywordListResponse defines model for Keyword List Response.
 //
-//https://developer.apple.com/documentation/apple_search_ads/keywordlistresponse
+// https://developer.apple.com/documentation/apple_search_ads/keywordlistresponse
 type KeywordListResponse struct {
 	Keywords   []*Keyword         `json:"data,omitempty"`
 	Error      *ErrorResponseBody `json:"error,omitempty"`

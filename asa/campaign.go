@@ -42,6 +42,16 @@ const (
 	CampaignAdChannelTypeDisplay CampaignAdChannelType = "DISPLAY"
 )
 
+// BillingEventType is the billing event for a campaign.
+type BillingEventType string
+
+const (
+	// BillingEventTypeTAPS When the supplySources value is APPSTORE_SEARCH_RESULTS or APPSTORE_SEARCH_TAB, the billingEvent must be TAPS.
+	BillingEventTypeTAPS CampaignAdChannelType = "TAPS"
+	// BillingEventTypeIMPRESSIONS The cost to the advertiser is per impression served.
+	BillingEventTypeIMPRESSIONS CampaignAdChannelType = "IMPRESSIONS"
+)
+
 // CampaignDisplayStatus is the status of the campaign.
 type CampaignDisplayStatus string
 
@@ -64,8 +74,6 @@ const (
 	PaymentModelPayG PaymentModel = "PAYG"
 	// PaymentModelLoc is a line-of-credit payment model.
 	PaymentModelLoc PaymentModel = "LOC"
-	// PaymentModelNotSet is represent there is no set payment method.
-	PaymentModelNotSet PaymentModel = ""
 )
 
 // CampaignServingStateReason is a reason that displays when a campaign can’t run.
@@ -189,11 +197,12 @@ const (
 type Campaign struct {
 	AdamID                             int64                                      `json:"adamId,omitempty"`
 	AdChannelType                      CampaignAdChannelType                      `json:"adChannelType,omitempty"`
-	BillingEvent                       string                                     `json:"billingEvent,omitempty"`
+	BillingEvent                       BillingEventType                           `json:"billingEvent,omitempty"`
 	BudgetAmount                       *Money                                     `json:"budgetAmount,omitempty"`
 	BudgetOrders                       []int64                                    `json:"budgetOrders,omitempty"`
 	CountriesOrRegions                 []string                                   `json:"countriesOrRegions,omitempty"`
 	CountryOrRegionServingStateReasons CampaignCountryOrRegionServingStateReasons `json:"countryOrRegionServingStateReasons,omitempty"`
+	CreationTime                       DateTime                                   `json:"creationTime,omitempty"`
 	DailyBudgetAmount                  *Money                                     `json:"dailyBudgetAmount,omitempty"`
 	Deleted                            bool                                       `json:"deleted,omitempty"`
 	DisplayStatus                      CampaignDisplayStatus                      `json:"displayStatus,omitempty"`

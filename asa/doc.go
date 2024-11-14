@@ -18,9 +18,12 @@ along with apple-search-ads-go.  If not, see <http://www.gnu.org/licenses/>.
 Package asa is a Go client library for accessing Apple's Apple Search Ads API.
 Usage
 Import the package as you normally would:
+
 	import "github.com/gungoren/apple-search-ads-go/asa"
+
 Construct a new Apple Search Ads client, then use the various services on the client to
 access different parts of the Apple Search Ads API. For example:
+
 	client := asa.NewClient(nil)
 
 	params := &asa.SearchAppsQuery{
@@ -29,6 +32,7 @@ access different parts of the Apple Search Ads API. For example:
 	}
 	// list all apps with the query "face"
 	apps, _, err := client.App.SearchApps(context.Background(), params)
+
 The client is divided into logical chunks closely corresponding to the layout and structure
 of Apple's own documentation at https://developer.apple.com/documentation/apple_search_ads.
 For more sample code snippets, head over to the https://github.com/gungoren/apple-search-ads-go/tree/master/examples directory.
@@ -38,6 +42,7 @@ The Apple Search Ads API has no methods that allow for unauthorized requests. To
 easy to authenticate with Apple Search Ads, the apple-search-ads-go library offers a solution for signing
 and rotating JSON Web Tokens automatically. For example, the above snippet could be made
 to look a little more like this:
+
 	import (
 		"os"
 		"time"
@@ -78,6 +83,7 @@ to look a little more like this:
 			return nil, err
 		}
 	}
+
 The authenticated client created here will automatically regenerate the token if it expires.
 Also note that all Apple Search Ads APIs are scoped to the credentials of the pre-configured key,
 so you can't use this API to make queries against the entire App Store. For more information on
@@ -87,6 +93,7 @@ Pagination
 All requests for resource collections (apps, acls, ad groups, campaigns, etc.) support pagination.
 Responses for paginated resources will contain a Pagination property of type PageDetail,
 with TotalResults, StartIndex and ItemsPerPage.
+
 	auth, _ := asa.NewTokenConfig(orgID, keyID, teamID, clientID, expiryDuration, privateKey)
 	client := asa.NewClient(auth.Client())
 

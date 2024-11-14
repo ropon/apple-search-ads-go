@@ -105,19 +105,19 @@ type ReportingResponse struct {
 //
 // https://developer.apple.com/documentation/apple_search_ads/reportingdataresponse
 type ReportingDataResponse struct {
-	Rows        []Row           `json:"row,omitempty"`
 	GrandTotals *GrandTotalsRow `json:"grandTotals,omitempty"`
+	Rows        []Row           `json:"row,omitempty"`
 }
 
 // Row is the report metrics organized by time granularity.
 //
 // https://developer.apple.com/documentation/apple_search_ads/row
 type Row struct {
-	Other       bool                `json:"other,omitempty"`
-	Granularity []*ExtendedSpendRow `json:"granularity,omitempty"`
-	Total       *SpendRow           `json:"total,omitempty"`
-	Metadata    *MetaDataObject     `json:"metadata,omitempty"`
 	Insights    *InsightsObject     `json:"insights,omitempty"`
+	Granularity []*ExtendedSpendRow `json:"granularity,omitempty"`
+	Metadata    *MetaDataObject     `json:"metadata,omitempty"`
+	Other       bool                `json:"other,omitempty"`
+	Total       *SpendRow           `json:"total,omitempty"`
 }
 
 // ReportingKeywordMatchType is an automated keyword and bidding strategy.
@@ -192,39 +192,51 @@ type GrandTotalsRow struct {
 //
 // https://developer.apple.com/documentation/apple_search_ads/spendrow
 type SpendRow struct {
-	AvgCPA         *Money  `json:"avgCPA,omitempty"`
-	AvgCPT         *Money  `json:"avgCPT,omitempty"`
-	AvgCPM         *Money  `json:"avgCPM,omitempty"`
-	ConversionRate float64 `json:"conversionRate,omitempty"`
-	Impressions    int64   `json:"impressions,omitempty"`
-	Installs       int64   `json:"installs,omitempty"`
-	LatOffInstalls int64   `json:"latOffInstalls,omitempty"`
-	LatOnInstalls  int64   `json:"latOnInstalls,omitempty"`
-	LocalSpend     *Money  `json:"localSpend,omitempty"`
-	NewDownloads   int64   `json:"newDownloads,omitempty"`
-	ReDownloads    int64   `json:"redownloads,omitempty"`
-	Taps           int64   `json:"taps,omitempty"`
-	Ttr            float64 `json:"ttr,omitempty"`
+	AvgCPM            *Money  `json:"avgCPM,omitempty"`
+	AvgCPT            *Money  `json:"avgCPT,omitempty"`
+	Impressions       int64   `json:"impressions,omitempty"`
+	LocalSpend        *Money  `json:"localSpend,omitempty"`
+	TapInstallCPI     *Money  `json:"tapInstallCPI,omitempty"`
+	TapInstallRate    float64 `json:"tapInstallRate,omitempty"`
+	TapInstalls       int64   `json:"tapInstalls,omitempty"`
+	TapNewDownloads   int64   `json:"tapNewDownloads,omitempty"`
+	TapReDownloads    int64   `json:"tapRedownloads,omitempty"`
+	Taps              int64   `json:"taps,omitempty"`
+	TotalAvgCPI       *Money  `json:"totalAvgCPI,omitempty"`
+	TotalInstallRate  float64 `json:"totalInstallRate,omitempty"`
+	TotalInstalls     int64   `json:"totalInstalls,omitempty"`
+	TotalNewDownloads int64   `json:"totalNewDownloads,omitempty"`
+	TotalReDownloads  int64   `json:"totalRedownloads,omitempty"`
+	Ttr               float64 `json:"ttr,omitempty"`
+	ViewInstalls      int64   `json:"viewInstalls,omitempty"`
+	ViewNewDownloads  int64   `json:"viewNewDownloads,omitempty"`
+	ViewReDownloads   int64   `json:"viewRedownloads,omitempty"`
 }
 
 // ExtendedSpendRow is the descriptions of metrics with dates
 //
 // https://developer.apple.com/documentation/apple_search_ads/extendedspendrow
 type ExtendedSpendRow struct {
-	AvgCPA         *Money  `json:"avgCPA,omitempty"`
-	AvgCPT         *Money  `json:"avgCPT,omitempty"`
-	AvgCPM         *Money  `json:"avgCPM,omitempty"`
-	ConversionRate float64 `json:"conversionRate,omitempty"`
-	Impressions    int64   `json:"impressions,omitempty"`
-	Installs       int64   `json:"installs,omitempty"`
-	LatOffInstalls int64   `json:"latOffInstalls,omitempty"`
-	LatOnInstalls  int64   `json:"latOnInstalls,omitempty"`
-	LocalSpend     *Money  `json:"localSpend,omitempty"`
-	NewDownloads   int64   `json:"newDownloads,omitempty"`
-	ReDownloads    int64   `json:"redownloads,omitempty"`
-	Taps           int64   `json:"taps,omitempty"`
-	Ttr            float64 `json:"ttr,omitempty"`
-	Date           Date    `json:"date,omitempty"`
+	AvgCPM            *Money  `json:"avgCPM,omitempty"`
+	AvgCPT            *Money  `json:"avgCPT,omitempty"`
+	Date              Date    `json:"date,omitempty"`
+	Impressions       int64   `json:"impressions,omitempty"`
+	LocalSpend        *Money  `json:"localSpend,omitempty"`
+	TapInstallCPI     *Money  `json:"tapInstallCPI,omitempty"`
+	TapInstallRate    float64 `json:"tapInstallRate,omitempty"`
+	TapInstalls       int64   `json:"tapInstalls,omitempty"`
+	TapNewDownloads   int64   `json:"tapNewDownloads,omitempty"`
+	TapReDownloads    int64   `json:"tapRedownloads,omitempty"`
+	Taps              int64   `json:"taps,omitempty"`
+	TotalAvgCPI       *Money  `json:"totalAvgCPI,omitempty"`
+	TotalInstallRate  float64 `json:"totalInstallRate,omitempty"`
+	TotalInstalls     int64   `json:"totalInstalls,omitempty"`
+	TotalNewDownloads int64   `json:"totalNewDownloads,omitempty"`
+	TotalReDownloads  int64   `json:"totalRedownloads,omitempty"`
+	Ttr               float64 `json:"ttr,omitempty"`
+	ViewInstalls      int64   `json:"viewInstalls,omitempty"`
+	ViewNewDownloads  int64   `json:"viewNewDownloads,omitempty"`
+	ViewReDownloads   int64   `json:"viewRedownloads,omitempty"`
 }
 
 // InsightsObject is a parent object for bid recommendations
@@ -238,8 +250,7 @@ type InsightsObject struct {
 //
 // https://developer.apple.com/documentation/apple_search_ads/keywordbidrecommendation
 type KeywordBidRecommendation struct {
-	BidMax *Money `json:"bidMax,omitempty"`
-	BidMin *Money `json:"bidMin,omitempty"`
+	SuggestedBidAmount *Money `json:"suggestedBidAmount,omitempty"`
 }
 
 // GetCampaignLevelReports fetches reports for campaigns
