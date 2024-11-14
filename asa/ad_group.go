@@ -53,7 +53,7 @@ const (
 
 // AdGroupPaymentModel defines model for AdGroupPaymentModel.
 //
-// https://developer.apple.com/documentation/apple_search_ads/adgroup
+// https://developer.apple.com/documentation/apple_search_ads/paymentmodel
 type AdGroupPaymentModel string
 
 const (
@@ -65,7 +65,7 @@ const (
 
 // AdGroupPricingModel defines model for AdGroupPricingModel.
 //
-// https://developer.apple.com/documentation/apple_search_ads/adgroup
+// https://developer.apple.com/documentation/apple_search_ads/pricingmodel
 type AdGroupPricingModel string
 
 const (
@@ -132,29 +132,31 @@ type AdGroup struct {
 	AutomatedKeywordsOptIn bool                 `json:"automatedKeywordsOptIn,omitempty"`
 	CampaignID             int64                `json:"campaignID,omitempty"`
 	CpaGoal                *Money               `json:"cpaGoal,omitempty"`
-	DefaultBidAmount       *Money               `json:"defaultBidAmount"`
-	Deleted                bool                 `json:"deleted"`
+	CreationTime           DateTime             `json:"creationTime,omitempty"`
+	DefaultBidAmount       *Money               `json:"defaultBidAmount,omitempty"`
+	Deleted                bool                 `json:"deleted,omitempty"`
 	DisplayStatus          AdGroupDisplayStatus `json:"displayStatus"`
 	EndTime                *DateTime            `json:"endTime,omitempty"`
 	ID                     int64                `json:"id,omitempty"`
 	ModificationTime       DateTime             `json:"modificationTime,omitempty"`
 	Name                   string               `json:"name,omitempty"`
 	OrgID                  int64                `json:"orgId,omitempty"`
-	PaymentModel           AdGroupPaymentModel  `json:"paymentModel"`
-	PricingModel           AdGroupPricingModel  `json:"pricingModel"`
+	PaymentModel           AdGroupPaymentModel  `json:"paymentModel,omitempty"`
+	PricingModel           AdGroupPricingModel  `json:"pricingModel,omitempty"`
 	ServingStateReasons    []ServingStateReason `json:"servingStateReasons,omitempty"`
-	ServingStatus          AdGroupServingStatus `json:"servingStatus"`
+	ServingStatus          AdGroupServingStatus `json:"servingStatus,omitempty"`
 	StartTime              DateTime             `json:"startTime,omitempty"`
 	Status                 AdGroupStatus        `json:"status,omitempty"`
-	TargetDimensions       *TargetDimensions    `json:"targetDimensions,omitempty"`
+	TargetingDimensions    *TargetingDimensions `json:"targetingDimensions,omitempty"`
 }
 
-// TargetDimensions is the criteria to use with ad groups to narrow the audience that views the ads
+// TargetingDimensions is the criteria to use with ad groups to narrow the audience that views the ads
 //
 // https://developer.apple.com/documentation/apple_search_ads/targetingdimensions
-type TargetDimensions struct {
+type TargetingDimensions struct {
 	AdminArea      *AdminAreaCriteria     `json:"adminArea,omitempty"`
 	Age            *AgeCriteria           `json:"age,omitempty"`
+	AppCategories  *AppCategoryCriteria   `json:"appCategories,omitempty"`
 	AppDownloaders *AppDownloaderCriteria `json:"appDownloaders"`
 	Country        *CountryCriteria       `json:"country,omitempty"`
 	DayPart        *DayPartCriteria       `json:"daypart,omitempty"`
@@ -185,12 +187,20 @@ type AgeRange struct {
 	MinAge int32 `json:"minAge,omitempty"`
 }
 
+// AppCategoryCriteria The defined target audience by app category.
+//
+// https://developer.apple.com/documentation/apple_search_ads/appcategorycriteria
+type AppCategoryCriteria struct {
+	Excluded []int64 `json:"excluded,omitempty"`
+	Included []int64 `json:"included,omitempty"`
+}
+
 // AppDownloaderCriteria is the defined targeted audience according to app downloads
 //
 // https://developer.apple.com/documentation/apple_search_ads/appdownloadercriteria
 type AppDownloaderCriteria struct {
-	Included []string `json:"included,omitempty"`
-	Excluded []string `json:"excluded,omitempty"`
+	Included []int64 `json:"included,omitempty"`
+	Excluded []int64 `json:"excluded,omitempty"`
 }
 
 // CountryCriteria is the defined targeted audience by country or region
@@ -285,14 +295,14 @@ type GetAllAdGroupsQuery struct {
 //
 // https://developer.apple.com/documentation/apple_search_ads/adgroupupdate
 type AdGroupUpdateRequest struct {
-	AutomatedKeywordsOptIn bool              `json:"automatedKeywordsOptIn,omitempty"`
-	CpaGoal                *Money            `json:"cpaGoal,omitempty"`
-	DefaultBidAmount       *Money            `json:"defaultBidAmount,omitempty"`
-	EndTime                DateTime          `json:"endTime,omitempty"`
-	Name                   string            `json:"name,omitempty"`
-	StartTime              DateTime          `json:"startTime,omitempty"`
-	Status                 AdGroupStatus     `json:"status,omitempty"`
-	TargetingDimensions    *TargetDimensions `json:"targetingDimensions"`
+	AutomatedKeywordsOptIn bool                 `json:"automatedKeywordsOptIn,omitempty"`
+	CpaGoal                *Money               `json:"cpaGoal,omitempty"`
+	DefaultBidAmount       *Money               `json:"defaultBidAmount,omitempty"`
+	EndTime                DateTime             `json:"endTime,omitempty"`
+	Name                   string               `json:"name,omitempty"`
+	StartTime              DateTime             `json:"startTime,omitempty"`
+	Status                 AdGroupStatus        `json:"status,omitempty"`
+	TargetingDimensions    *TargetingDimensions `json:"targetingDimensions"`
 }
 
 // ConditionOperator is the operator values compare attributes to a list of specified values.
