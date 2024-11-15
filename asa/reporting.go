@@ -156,6 +156,7 @@ type CampaignAppDetail struct {
 type MetaDataObject struct {
 	AdGroupID                          int64                                       `json:"adGroupID,omitempty"`
 	AdGroupName                        string                                      `json:"adGroupName,omitempty"`
+	AdGroupDeleted                     bool                                        `json:"adGroupDeleted,omitempty"`
 	CampaignID                         int64                                       `json:"campaignId,omitempty"`
 	CampaignName                       string                                      `json:"campaignName,omitempty"`
 	Deleted                            bool                                        `json:"deleted,omitempty"`
@@ -174,6 +175,9 @@ type MetaDataObject struct {
 	CountryOrRegionServingStateReasons *CampaignCountryOrRegionServingStateReasons `json:"countryOrRegionServingStateReasons,omitempty"`
 	BillingEvent                       string                                      `json:"billingEvent,omitempty"`
 	KeywordID                          int64                                       `json:"keywordID,omitempty"`
+	Keyword                            string                                      `json:"keyword,omitempty"`
+	KeywordStatus                      string                                      `json:"keywordStatus,omitempty"`
+	KeywordDisplayStatus               string                                      `json:"keywordDisplayStatus,omitempty"`
 	MatchType                          *ReportingKeywordMatchType                  `json:"matchType,omitempty"`
 	CountryOrRegion                    string                                      `json:"countryOrRegion,omitempty"`
 	SearchTermText                     *string                                     `json:"SearchTermText,omitempty"`
