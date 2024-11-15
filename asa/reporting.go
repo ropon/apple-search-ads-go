@@ -74,8 +74,8 @@ const (
 //
 // https://developer.apple.com/documentation/apple_search_ads/reportingrequest
 type ReportingRequest struct {
-	StartTime                  Date                        `json:"startTime,omitempty"`
-	EndTime                    Date                        `json:"endTime,omitempty"`
+	StartTime                  ReqDate                     `json:"startTime,omitempty"`
+	EndTime                    ReqDate                     `json:"endTime,omitempty"`
 	Granularity                ReportingRequestGranularity `json:"granularity,omitempty"`
 	TimeZone                   ReportingRequestTimeZone    `json:"timeZone,omitempty"`
 	GroupBy                    []ReportingRequestGroupBy   `json:"groupBy,omitempty"`
