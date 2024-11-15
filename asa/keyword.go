@@ -159,6 +159,7 @@ func (s *KeywordService) UpdateTargetingKeywords(ctx context.Context, campaignID
 type NegativeKeyword struct {
 	AdGroupID        int64            `json:"adGroupId,omitempty"`
 	CampaignID       int64            `json:"campaignId,omitempty"`
+	CreationTime     DateTime         `json:"creationTime,omitempty"`
 	Deleted          bool             `json:"deleted,omitempty"`
 	ID               int64            `json:"id,omitempty"`
 	MatchType        KeywordMatchType `json:"matchType,omitempty"`

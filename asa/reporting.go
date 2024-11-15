@@ -286,11 +286,33 @@ func (s *ReportingService) GetKeywordLevelReports(ctx context.Context, campaignI
 	return res, resp, err
 }
 
+// GetAdGroupKeywordLevelReports Fetches reports for targeting keywords within an ad group.
+//
+// https://developer.apple.com/documentation/apple_search_ads/get_keyword-level_within_ad_group_reports
+func (s *ReportingService) GetAdGroupKeywordLevelReports(ctx context.Context, campaignID, adGroupID int64, params *ReportingRequest) (*ReportingResponseBody, *Response, error) {
+	url := fmt.Sprintf("reports/campaigns/%d/adgroups/%d/keywords", campaignID, adGroupID)
+	res := new(ReportingResponseBody)
+	resp, err := s.client.post(ctx, url, &params, res)
+
+	return res, resp, err
+}
+
 // GetSearchTermLevelReports fetches reports for search terms within a campaign
 //
 // https://developer.apple.com/documentation/apple_search_ads/get_search_term-level_reports
 func (s *ReportingService) GetSearchTermLevelReports(ctx context.Context, campaignID int64, params *ReportingRequest) (*ReportingResponseBody, *Response, error) {
 	url := fmt.Sprintf("reports/campaigns/%d/searchterms", campaignID)
+	res := new(ReportingResponseBody)
+	resp, err := s.client.post(ctx, url, &params, res)
+
+	return res, resp, err
+}
+
+// GetAdGroupSearchTermLevelReports Fetches reports for search terms within an ad group.
+//
+// https://developer.apple.com/documentation/apple_search_ads/get_search_term-level_within_ad_group_reports
+func (s *ReportingService) GetAdGroupSearchTermLevelReports(ctx context.Context, campaignID, adGroupID int64, params *ReportingRequest) (*ReportingResponseBody, *Response, error) {
+	url := fmt.Sprintf("reports/campaigns/%d/adgroups/%d/searchterms", campaignID, adGroupID)
 	res := new(ReportingResponseBody)
 	resp, err := s.client.post(ctx, url, &params, res)
 
