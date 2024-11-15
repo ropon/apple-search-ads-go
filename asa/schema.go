@@ -25,6 +25,7 @@ import (
 
 const (
 	dateFormat          = "2006-01-02 15"
+	ReqDateFormat       = "2006-01-02"
 	customISO8601Format = "2006-01-02T15:04:05.999"
 	emailRegexString    = "^(?:(?:(?:(?:[a-zA-Z]|\\d|[!#\\$%&'\\*\\+\\-\\/=\\?\\^_`{\\|}~]|[\\x{00A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}])+(?:\\.([a-zA-Z]|\\d|[!#\\$%&'\\*\\+\\-\\/=\\?\\^_`{\\|}~]|[\\x{00A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}])+)*)|(?:(?:\\x22)(?:(?:(?:(?:\\x20|\\x09)*(?:\\x0d\\x0a))?(?:\\x20|\\x09)+)?(?:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f]|\\x21|[\\x23-\\x5b]|[\\x5d-\\x7e]|[\\x{00A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}])|(?:(?:[\\x01-\\x09\\x0b\\x0c\\x0d-\\x7f]|[\\x{00A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}]))))*(?:(?:(?:\\x20|\\x09)*(?:\\x0d\\x0a))?(\\x20|\\x09)+)?(?:\\x22))))@(?:(?:(?:[a-zA-Z]|\\d|[\\x{00A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}])|(?:(?:[a-zA-Z]|\\d|[\\x{00A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}])(?:[a-zA-Z]|\\d|-|\\.|~|[\\x{00A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}])*(?:[a-zA-Z]|\\d|[\\x{00A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}])))\\.)+(?:(?:[a-zA-Z]|[\\x{00A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}])|(?:(?:[a-zA-Z]|[\\x{00A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}])(?:[a-zA-Z]|\\d|-|\\.|~|[\\x{00A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}])*(?:[a-zA-Z]|[\\x{00A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}])))\\.?$"
 )
@@ -55,6 +56,35 @@ func (d Date) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON is a custom unmarshaller for time-less dates.
 func (d *Date) UnmarshalJSON(data []byte) error {
+	var dateStr string
+
+	err := json.Unmarshal(data, &dateStr)
+	if err != nil {
+		return err
+	}
+
+	parsed, err := time.Parse(dateFormat, dateStr)
+	if err != nil {
+		return err
+	}
+
+	d.Time = parsed
+
+	return nil
+}
+
+// ReqDate represents a date with no time component.
+type ReqDate struct {
+	time.Time
+}
+
+// MarshalJSON is a custom marshaller for time-less dates.
+func (d ReqDate) MarshalJSON() ([]byte, error) {
+	return json.Marshal(d.Time.Format(ReqDateFormat))
+}
+
+// UnmarshalJSON is a custom unmarshaller for time-less dates.
+func (d *ReqDate) UnmarshalJSON(data []byte) error {
 	var dateStr string
 
 	err := json.Unmarshal(data, &dateStr)
