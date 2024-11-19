@@ -101,6 +101,11 @@ func (c *Client) SetHTTPDebug(flag bool) {
 	c.httpDebug = flag
 }
 
+// SetHTTPTimeout set timeout
+func (c *Client) SetHTTPTimeout(n time.Duration) {
+	c.client.Timeout = n
+}
+
 // Response is a Apple Search Ads API response. This wraps the standard http.Response
 // returned from Apple and provides convenient access to things like rate limit.
 type Response struct {
