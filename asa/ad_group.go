@@ -199,8 +199,8 @@ type AppCategoryCriteria struct {
 //
 // https://developer.apple.com/documentation/apple_search_ads/appdownloadercriteria
 type AppDownloaderCriteria struct {
-	Included []int64 `json:"included,omitempty"`
-	Excluded []int64 `json:"excluded,omitempty"`
+	Included []string `json:"included,omitempty"`
+	Excluded []string `json:"excluded,omitempty"`
 }
 
 // CountryCriteria is the defined targeted audience by country or region

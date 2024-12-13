@@ -166,8 +166,8 @@ func TestGetCampaignLevelReportsRequestSerialization(t *testing.T) {
 	endTimeTime, _ := time.Parse("2006-01-02", "2020-08-14")
 
 	reportingRequest := &ReportingRequest{
-		StartTime:                  Date{startTime},
-		EndTime:                    Date{endTimeTime},
+		StartTime:                  ReqDate{startTime},
+		EndTime:                    ReqDate{endTimeTime},
 		TimeZone:                   ReportingRequestTimeZoneUTC,
 		GroupBy:                    []ReportingRequestGroupBy{ReportingRequestGroupByTypeCountryOrRegion},
 		ReturnGrandTotals:          true,
@@ -218,8 +218,8 @@ func TestGetCampaignLevelReportsWithGranularityRequestSerialization(t *testing.T
 	endTimeTime, _ := time.Parse("2006-01-02", "2020-08-14")
 
 	reportingRequest := &ReportingRequest{
-		StartTime:                  Date{startTime},
-		EndTime:                    Date{endTimeTime},
+		StartTime:                  ReqDate{startTime},
+		EndTime:                    ReqDate{endTimeTime},
 		TimeZone:                   ReportingRequestTimeZoneUTC,
 		GroupBy:                    []ReportingRequestGroupBy{ReportingRequestGroupByTypeCountryOrRegion},
 		ReturnGrandTotals:          false,
@@ -266,8 +266,8 @@ func TestKeywordLevelReportsRequestSerialization(t *testing.T) {
 	endTimeTime, _ := time.Parse("2006-01-02", "2020-07-02")
 
 	reportingRequest := &ReportingRequest{
-		StartTime:                  Date{startTime},
-		EndTime:                    Date{endTimeTime},
+		StartTime:                  ReqDate{startTime},
+		EndTime:                    ReqDate{endTimeTime},
 		TimeZone:                   ReportingRequestTimeZoneUTC,
 		ReturnGrandTotals:          true,
 		ReturnRecordsWithNoMetrics: true,
@@ -306,8 +306,8 @@ func TestSearchTermLevelReportsRequestSerialization(t *testing.T) {
 	endTimeTime, _ := time.Parse("2006-01-02", "2020-06-11")
 
 	reportingRequest := &ReportingRequest{
-		StartTime:                  Date{startTime},
-		EndTime:                    Date{endTimeTime},
+		StartTime:                  ReqDate{startTime},
+		EndTime:                    ReqDate{endTimeTime},
 		TimeZone:                   ReportingRequestTimeZoneORTZ,
 		ReturnGrandTotals:          true,
 		ReturnRecordsWithNoMetrics: false,
