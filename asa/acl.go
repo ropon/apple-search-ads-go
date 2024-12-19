@@ -53,6 +53,7 @@ const (
 // https://developer.apple.com/documentation/apple_search_ads/useracl
 type UserACL struct {
 	Currency     string                   `json:"currency"`
+	DisplayName  string                   `json:"displayName"`
 	OrgID        int64                    `json:"orgId"`
 	OrgName      string                   `json:"orgName"`
 	ParentOrgID  int64                    `json:"parentOrgId"`
