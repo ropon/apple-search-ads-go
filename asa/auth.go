@@ -24,7 +24,7 @@ import (
 	"encoding/pem"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"time"
 
@@ -213,7 +213,7 @@ func (g *standardJWTGenerator) generateAccessToken(token string) (*accessToken, 
 	}
 	defer resp.Body.Close()
 
-	b, _ := ioutil.ReadAll(resp.Body)
+	b, _ := io.ReadAll(resp.Body)
 	if resp.StatusCode >= http.StatusBadRequest {
 		return nil, fmt.Errorf("http error %w: %s", ErrHTTPTokenBadRequest, string(b))
 	}
