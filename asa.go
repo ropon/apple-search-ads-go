@@ -97,11 +97,14 @@ func (c *Client) SetOrgID(orgID int64) {
 	c.auth.SetOrgID(orgID)
 }
 
-func (c *Client) HttpClient() *requests.Request {
-	httpReq := c.auth.Client()
+func (c *Client) HttpClient() (*requests.Request, error) {
+	httpReq, err := c.auth.Client()
+	if err != nil {
+		return nil, err
+	}
 	httpReq.Debug = true
 	SetDefault(httpReq)
-	return httpReq
+	return httpReq, nil
 }
 
 // rawJson 处理json响应
@@ -134,7 +137,11 @@ func (c *Client) get(apiUrl string, resp interface{}, params ...interface{}) err
 		u.RawQuery = query.Encode()
 		apiUrl = u.String()
 	}
-	res, err := c.HttpClient().Get(apiUrl)
+	client, err := c.HttpClient()
+	if err != nil {
+		return err
+	}
+	res, err := client.Get(apiUrl)
 	if err != nil {
 		return err
 	}
@@ -143,19 +150,23 @@ func (c *Client) get(apiUrl string, resp interface{}, params ...interface{}) err
 
 // post 处理post请求
 func (c *Client) post(url string, resp interface{}, data ...interface{}) error {
+	client, err := c.HttpClient()
+	if err != nil {
+		return err
+	}
 	if len(data) > 0 {
 		postData := data[0]
 		bS, err := json.Marshal(postData)
 		if err != nil {
 			return err
 		}
-		res, err := c.HttpClient().Post(url, string(bS))
+		res, err := client.Post(url, string(bS))
 		if err != nil {
 			return err
 		}
 		return c.rawJson(res, resp)
 	}
-	res, err := c.HttpClient().Post(url, data...)
+	res, err := client.Post(url, data...)
 	if err != nil {
 		return err
 	}

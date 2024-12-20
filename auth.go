@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/dgrijalva/jwt-go/v4"
-	"log"
 	"time"
 
 	"github.com/ropon/requests/v2"
@@ -181,15 +180,14 @@ func (t *TokenConfig) GenerateClientSecret() (string, error) {
 	return t.jwtGenerator.Token()
 }
 
-func (t *TokenConfig) Client() *requests.Request {
+func (t *TokenConfig) Client() (*requests.Request, error) {
 	tokenStr, err := t.jwtGenerator.AccessToken()
 	if err != nil {
-		log.Println("TokenConfig Client error:", err)
-		return nil
+		return nil, err
 	}
 	t.httpReq.SetHeader("Authorization", fmt.Sprintf("Bearer %s", tokenStr))
 	if t.orgID > 0 {
 		t.httpReq.SetHeader("X-AP-Context", fmt.Sprintf("orgId=%v", t.orgID))
 	}
-	return t.httpReq
+	return t.httpReq, nil
 }
