@@ -15,7 +15,7 @@ func TestGetUserACL(t *testing.T) {
 		return
 	}
 
-	res, err := NewClientWithAuth(auth).AccessControlList.GetUserACL()
+	res, err := NewClient(auth).AccessControlList.GetUserACL()
 	if err != nil {
 		t.Error(err.Error())
 		return

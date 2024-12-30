@@ -9,12 +9,6 @@ import (
 // https://developer.apple.com/documentation/apple_search_ads/campaigns
 type CampaignService service
 
-// GetAllCampaignQuery defines query parameter for GetAllCampaigns endpoint.
-type GetAllCampaignQuery struct {
-	Limit  int32 `url:"limit" param:"default=10"`
-	Offset int32 `url:"offset"`
-}
-
 // CampaignAdChannelType is the channel type of ad in a campaign.
 type CampaignAdChannelType string
 
@@ -30,9 +24,9 @@ type BillingEventType string
 
 const (
 	// BillingEventTypeTAPS When the supplySources value is APPSTORE_SEARCH_RESULTS or APPSTORE_SEARCH_TAB, the billingEvent must be TAPS.
-	BillingEventTypeTAPS CampaignAdChannelType = "TAPS"
+	BillingEventTypeTAPS BillingEventType = "TAPS"
 	// BillingEventTypeIMPRESSIONS The cost to the advertiser is per impression served.
-	BillingEventTypeIMPRESSIONS CampaignAdChannelType = "IMPRESSIONS"
+	BillingEventTypeIMPRESSIONS BillingEventType = "IMPRESSIONS"
 )
 
 // CampaignDisplayStatus is the status of the campaign.
@@ -115,10 +109,12 @@ type CampaignSupplySource string
 const (
 	// CampaignSupplySourceAppstoreSearchResults is for a campaign supply source on APPSTORE_SEARCH_RESULTS.
 	CampaignSupplySourceAppstoreSearchResults CampaignSupplySource = "APPSTORE_SEARCH_RESULTS"
-	// CampaignSupplySourceNews is for a campaign supply source on NEWS.
-	CampaignSupplySourceNews CampaignSupplySource = "NEWS"
-	// CampaignSupplySourceStocks is for a campaign supply source on STOCKS.
-	CampaignSupplySourceStocks CampaignSupplySource = "STOCKS"
+	// CampaignSupplySourceAppstoreSearchTab is for a campaign supply source on APPSTORE_SEARCH_TAB.
+	CampaignSupplySourceAppstoreSearchTab CampaignSupplySource = "APPSTORE_SEARCH_TAB"
+	// CampaignSupplySourceAppstoreTodayTab is for a campaign supply source on APPSTORE_TODAY_TAB.
+	CampaignSupplySourceAppstoreTodayTab CampaignSupplySource = "APPSTORE_TODAY_TAB"
+	// CampaignSupplySourceAppstoreProductPagesBrowse is for a campaign supply source on APPSTORE_PRODUCT_PAGES_BROWSE.
+	CampaignSupplySourceAppstoreProductPagesBrowse CampaignSupplySource = "APPSTORE_PRODUCT_PAGES_BROWSE"
 )
 
 // CampaignServingStatus is the status of the campaign.
@@ -204,13 +200,31 @@ type LOCInvoiceDetails struct {
 	OrderNumber         string `json:"orderNumber,omitempty"`
 }
 
-// CampaignResponse is a container for the campaign response body
+// GetAllCampaignQuery defines query parameter for GetAllCampaigns endpoint.
+type GetAllCampaignQuery struct {
+	Limit  int32 `url:"limit" param:"default=10"`
+	Offset int32 `url:"offset"`
+}
+
+// CampaignUpdate is the list of campaign fields that are updatable
 //
-// https://developer.apple.com/documentation/apple_search_ads/campaignresponse
-type CampaignResponse struct {
-	Campaign   *Campaign          `json:"data,omitempty"`
-	Error      *ErrorResponseBody `json:"error,omitempty"`
-	Pagination *PageDetail        `json:"pagination,omitempty"`
+// https://developer.apple.com/documentation/apple_search_ads/campaignupdate
+type CampaignUpdate struct {
+	BudgetAmount       *Money            `json:"budgetAmount,omitempty"`
+	BudgetOrders       int64             `json:"budgetOrders,omitempty"`
+	CountriesOrRegions []string          `json:"countriesOrRegions,omitempty"`
+	DailyBudgetAmount  *Money            `json:"dailyBudgetAmount,omitempty"`
+	LOCInvoiceDetails  LOCInvoiceDetails `json:"locInvoiceDetails,omitempty"`
+	Name               string            `json:"name,omitempty"`
+	Status             *CampaignStatus   `json:"status,omitempty"`
+}
+
+// UpdateCampaignRequest is the payload properties to clear Geo Targeting from a campaign
+//
+// https://developer.apple.com/documentation/apple_search_ads/updatecampaignrequest
+type UpdateCampaignRequest struct {
+	Campaign                                 *CampaignUpdate `json:"campaign"`
+	ClearGeoTargetingOnCountryOrRegionChange bool            `json:"clearGeoTargetingOnCountryOrRegionChange"`
 }
 
 // CampaignListResponse is the response details of campaign requests
@@ -218,6 +232,15 @@ type CampaignResponse struct {
 // https://developer.apple.com/documentation/apple_search_ads/campaignlistresponse
 type CampaignListResponse struct {
 	Campaigns  []*Campaign        `json:"data,omitempty"`
+	Error      *ErrorResponseBody `json:"error,omitempty"`
+	Pagination *PageDetail        `json:"pagination,omitempty"`
+}
+
+// CampaignResponse is a container for the campaign response body
+//
+// https://developer.apple.com/documentation/apple_search_ads/campaignresponse
+type CampaignResponse struct {
+	Campaign   *Campaign          `json:"data,omitempty"`
 	Error      *ErrorResponseBody `json:"error,omitempty"`
 	Pagination *PageDetail        `json:"pagination,omitempty"`
 }
@@ -253,23 +276,35 @@ func (s *CampaignService) FindCampaigns(selector *Selector) (*CampaignListRespon
 	return res, err
 }
 
-// CampaignUpdate is the list of campaign fields that are updatable
+// CreateCampaign Creates a campaign to promote an app
 //
-// https://developer.apple.com/documentation/apple_search_ads/campaignupdate
-type CampaignUpdate struct {
-	BudgetAmount       *Money            `json:"budgetAmount,omitempty"`
-	BudgetOrders       int64             `json:"budgetOrders,omitempty"`
-	CountriesOrRegions []string          `json:"countriesOrRegions,omitempty"`
-	DailyBudgetAmount  *Money            `json:"dailyBudgetAmount,omitempty"`
-	LOCInvoiceDetails  LOCInvoiceDetails `json:"locInvoiceDetails,omitempty"`
-	Name               string            `json:"name,omitempty"`
-	Status             *CampaignStatus   `json:"status,omitempty"`
+// https://developer.apple.com/documentation/apple_search_ads/create_a_campaign
+func (s *CampaignService) CreateCampaign(campaign *Campaign) (*CampaignResponse, error) {
+	url := "campaigns"
+	res := new(CampaignResponse)
+	err := s.client.post(url, res, campaign)
+
+	return res, err
 }
 
-// UpdateCampaignRequest is the payload properties to clear Geo Targeting from a campaign
+// DeleteCampaign Deletes a specific campaign by campaign identifier
 //
-// https://developer.apple.com/documentation/apple_search_ads/updatecampaignrequest
-type UpdateCampaignRequest struct {
-	Campaign                                 *CampaignUpdate `json:"campaign"`
-	ClearGeoTargetingOnCountryOrRegionChange bool            `json:"clearGeoTargetingOnCountryOrRegionChange"`
+// https://developer.apple.com/documentation/apple_search_ads/delete_a_campaign
+func (s *CampaignService) DeleteCampaign(campaignID int64) (*BaseResponse, error) {
+	url := fmt.Sprintf("campaigns/%d", campaignID)
+	res := new(BaseResponse)
+	err := s.client.delete(url, res)
+
+	return res, err
+}
+
+// UpdateCampaign Updates a campaign with a campaign identifier
+//
+// https://developer.apple.com/documentation/apple_search_ads/update_a_campaign
+func (s *CampaignService) UpdateCampaign(campaignID int64, req *UpdateCampaignRequest) (*CampaignResponse, error) {
+	url := fmt.Sprintf("campaigns/%d", campaignID)
+	res := new(CampaignResponse)
+	err := s.client.put(url, res, req)
+
+	return res, err
 }

@@ -1,5 +1,10 @@
 package asa
 
+// AccessControlListService handles communication with build-related methods of the Apple Search Ads API
+//
+// https://developer.apple.com/documentation/apple_search_ads/calling_the_apple_search_ads_api
+type AccessControlListService service
+
 // ErrorResponseItemMessageCode is a system-assigned error code.
 type ErrorResponseItemMessageCode string
 
@@ -44,52 +49,6 @@ const (
 	ReportingRequestTimeZoneORTZ ReportingRequestTimeZone = "ORTZ"
 )
 
-// AccessControlListService handles communication with build-related methods of the Apple Search Ads API
-//
-// https://developer.apple.com/documentation/apple_search_ads/calling_the_apple_search_ads_api
-type AccessControlListService service
-
-// UserACLListResponse is a container for ACL call responses
-//
-// https://developer.apple.com/documentation/apple_search_ads/useracllistresponse
-type UserACLListResponse struct {
-	UserAcls   []*UserACL         `json:"data,omitempty"`
-	Error      *ErrorResponseBody `json:"error,omitempty"`
-	Pagination *PageDetail        `json:"pagination,omitempty"`
-}
-
-// ErrorResponseBody is a container for the error response body
-//
-// https://developer.apple.com/documentation/apple_search_ads/errorresponsebody
-type ErrorResponseBody struct {
-	Errors []ErrorResponseItem `json:"errors,omitempty"`
-}
-
-// APIErrorResponse A container for the error response body
-//
-// https://developer.apple.com/documentation/apple_search_ads/apierrorresponse
-type APIErrorResponse struct {
-	Error ErrorResponseBody `json:"error,omitempty"`
-}
-
-// ErrorResponseItem is the error response details in the response body
-//
-// https://developer.apple.com/documentation/apple_search_ads/errorresponseitem
-type ErrorResponseItem struct {
-	Field       string                       `json:"field,omitempty"`
-	Message     string                       `json:"message,omitempty"`
-	MessageCode ErrorResponseItemMessageCode `json:"messageCode,omitempty"`
-}
-
-// PageDetail is the number of items that return in the page
-//
-// https://developer.apple.com/documentation/apple_search_ads/pagedetail
-type PageDetail struct {
-	TotalResults int `json:"totalResults"`
-	StartIndex   int `json:"startIndex"`
-	ItemsPerPage int `json:"itemsPerPage"`
-}
-
 // UserACL is the response to ACL requests
 //
 // https://developer.apple.com/documentation/apple_search_ads/useracl
@@ -102,6 +61,53 @@ type UserACL struct {
 	PaymentModel PaymentModel             `json:"paymentModel,omitempty"`
 	RoleNames    []UserACLRoleName        `json:"roleNames"`
 	TimeZone     ReportingRequestTimeZone `json:"timeZone"`
+}
+
+// ErrorResponseItem is the error response details in the response body
+//
+// https://developer.apple.com/documentation/apple_search_ads/errorresponseitem
+type ErrorResponseItem struct {
+	Field       string                       `json:"field,omitempty"`
+	Message     string                       `json:"message,omitempty"`
+	MessageCode ErrorResponseItemMessageCode `json:"messageCode,omitempty"`
+}
+
+// ErrorResponseBody is a container for the error response body
+//
+// https://developer.apple.com/documentation/apple_search_ads/errorresponsebody
+type ErrorResponseBody struct {
+	Errors []ErrorResponseItem `json:"errors,omitempty"`
+}
+
+// PageDetail is the number of items that return in the page
+//
+// https://developer.apple.com/documentation/apple_search_ads/pagedetail
+type PageDetail struct {
+	TotalResults int `json:"totalResults"`
+	StartIndex   int `json:"startIndex"`
+	ItemsPerPage int `json:"itemsPerPage"`
+}
+
+// UserACLListResponse is a container for ACL call responses
+//
+// https://developer.apple.com/documentation/apple_search_ads/useracllistresponse
+type UserACLListResponse struct {
+	UserAcls   []*UserACL         `json:"data,omitempty"`
+	Error      *ErrorResponseBody `json:"error,omitempty"`
+	Pagination *PageDetail        `json:"pagination,omitempty"`
+}
+
+// APIErrorResponse A container for the error response body
+//
+// https://developer.apple.com/documentation/apple_search_ads/apierrorresponse
+type APIErrorResponse struct {
+	Error ErrorResponseBody `json:"error,omitempty"`
+}
+
+type BaseResponse struct {
+	Data       interface{}       `json:"data,omitempty"`
+	Pagination *PageDetail       `json:"pagination,omitempty"`
+	Error      *APIErrorResponse `json:"error,omitempty"`
 }
 
 // GetUserACL Fetches roles and organizations that the API has access to

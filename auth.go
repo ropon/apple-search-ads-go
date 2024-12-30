@@ -13,12 +13,6 @@ import (
 // ErrMissingPEM happens when the bytes cannot be decoded as a PEM block.
 var ErrMissingPEM = errors.New("no PEM blob found")
 
-// ErrInvalidPrivateKey happens when a key cannot be parsed as a ECDSA PKCS8 private key.
-var ErrInvalidPrivateKey = errors.New("key could not be parsed as a valid ecdsa.PrivateKey")
-
-// ErrHTTPTokenBadRequest happens when apple generate token http request failed.
-var ErrHTTPTokenBadRequest = errors.New("generate auth token failed with")
-
 // TokenConfig 获取token配置
 type TokenConfig struct {
 	jwtGenerator *standardJWTGenerator
@@ -187,7 +181,7 @@ func (t *TokenConfig) Client() (*requests.Request, error) {
 	}
 	t.httpReq.SetHeader("Authorization", fmt.Sprintf("Bearer %s", tokenStr))
 	if t.orgID > 0 {
-		t.httpReq.SetHeader("X-AP-Context", fmt.Sprintf("orgId=%v", t.orgID))
+		t.httpReq.SetHeader("X-AP-Context", fmt.Sprintf("orgId=%d", t.orgID))
 	}
 	return t.httpReq, nil
 }

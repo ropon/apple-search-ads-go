@@ -59,56 +59,6 @@ const (
 	ReportingRequestGroupByTypeLocality ReportingRequestGroupBy = "locality"
 )
 
-// ReportingRequest is the report request body
-//
-// https://developer.apple.com/documentation/apple_search_ads/reportingrequest
-type ReportingRequest struct {
-	StartTime                  ReqDate                     `json:"startTime,omitempty"`
-	EndTime                    ReqDate                     `json:"endTime,omitempty"`
-	Granularity                ReportingRequestGranularity `json:"granularity,omitempty"`
-	TimeZone                   ReportingRequestTimeZone    `json:"timeZone,omitempty"`
-	GroupBy                    []ReportingRequestGroupBy   `json:"groupBy,omitempty"`
-	ReturnGrandTotals          bool                        `json:"returnGrandTotals"`
-	ReturnRecordsWithNoMetrics bool                        `json:"returnRecordsWithNoMetrics"`
-	ReturnRowTotals            bool                        `json:"returnRowTotals"`
-	Selector                   *Selector                   `json:"selector,omitempty"`
-}
-
-// ReportingResponseBody is a container for the report response body
-//
-// https://developer.apple.com/documentation/apple_search_ads/reportingresponsebody
-type ReportingResponseBody struct {
-	ReportingCampaign *ReportingResponse `json:"data,omitempty"`
-	Pagination        *PageDetail        `json:"pagination,omitempty"`
-	Error             *ErrorResponseBody `json:"error,omitempty"`
-}
-
-// ReportingResponse is a container for report metrics
-//
-// https://developer.apple.com/documentation/apple_search_ads/reportingresponse
-type ReportingResponse struct {
-	ReportingDataResponse *ReportingDataResponse `json:"reportingDataResponse,omitempty"`
-}
-
-// ReportingDataResponse is the total metrics for a report
-//
-// https://developer.apple.com/documentation/apple_search_ads/reportingdataresponse
-type ReportingDataResponse struct {
-	GrandTotals *GrandTotalsRow `json:"grandTotals,omitempty"`
-	Rows        []Row           `json:"row,omitempty"`
-}
-
-// Row is the report metrics organized by time granularity.
-//
-// https://developer.apple.com/documentation/apple_search_ads/row
-type Row struct {
-	Insights    *InsightsObject     `json:"insights,omitempty"`
-	Granularity []*ExtendedSpendRow `json:"granularity,omitempty"`
-	Metadata    *MetaDataObject     `json:"metadata,omitempty"`
-	Other       bool                `json:"other,omitempty"`
-	Total       *SpendRow           `json:"total,omitempty"`
-}
-
 // ReportingKeywordMatchType is an automated keyword and bidding strategy.
 type ReportingKeywordMatchType string
 
@@ -130,6 +80,17 @@ const (
 	// SearchTermSourceTargeted is a bidded keyword.
 	SearchTermSourceTargeted SearchTermSource = "TARGETED"
 )
+
+// Row is the report metrics organized by time granularity.
+//
+// https://developer.apple.com/documentation/apple_search_ads/row
+type Row struct {
+	Insights    *InsightsObject     `json:"insights,omitempty"`
+	Granularity []*ExtendedSpendRow `json:"granularity,omitempty"`
+	Metadata    *MetaDataObject     `json:"metadata,omitempty"`
+	Other       bool                `json:"other,omitempty"`
+	Total       *SpendRow           `json:"total,omitempty"`
+}
 
 // CampaignAppDetail is the app data to fetch from campaign-level reports
 //
@@ -244,6 +205,45 @@ type InsightsObject struct {
 // https://developer.apple.com/documentation/apple_search_ads/keywordbidrecommendation
 type KeywordBidRecommendation struct {
 	SuggestedBidAmount *Money `json:"suggestedBidAmount,omitempty"`
+}
+
+// ReportingRequest is the report request body
+//
+// https://developer.apple.com/documentation/apple_search_ads/reportingrequest
+type ReportingRequest struct {
+	StartTime                  ReqDate                     `json:"startTime,omitempty"`
+	EndTime                    ReqDate                     `json:"endTime,omitempty"`
+	Granularity                ReportingRequestGranularity `json:"granularity,omitempty"`
+	TimeZone                   ReportingRequestTimeZone    `json:"timeZone,omitempty"`
+	GroupBy                    []ReportingRequestGroupBy   `json:"groupBy,omitempty"`
+	ReturnGrandTotals          bool                        `json:"returnGrandTotals"`
+	ReturnRecordsWithNoMetrics bool                        `json:"returnRecordsWithNoMetrics"`
+	ReturnRowTotals            bool                        `json:"returnRowTotals"`
+	Selector                   *Selector                   `json:"selector,omitempty"`
+}
+
+// ReportingResponseBody is a container for the report response body
+//
+// https://developer.apple.com/documentation/apple_search_ads/reportingresponsebody
+type ReportingResponseBody struct {
+	ReportingCampaign *ReportingResponse `json:"data,omitempty"`
+	Pagination        *PageDetail        `json:"pagination,omitempty"`
+	Error             *ErrorResponseBody `json:"error,omitempty"`
+}
+
+// ReportingResponse is a container for report metrics
+//
+// https://developer.apple.com/documentation/apple_search_ads/reportingresponse
+type ReportingResponse struct {
+	ReportingDataResponse *ReportingDataResponse `json:"reportingDataResponse,omitempty"`
+}
+
+// ReportingDataResponse is the total metrics for a report
+//
+// https://developer.apple.com/documentation/apple_search_ads/reportingdataresponse
+type ReportingDataResponse struct {
+	GrandTotals *GrandTotalsRow `json:"grandTotals,omitempty"`
+	Rows        []Row           `json:"row,omitempty"`
 }
 
 // GetCampaignLevelReports fetches reports for campaigns
