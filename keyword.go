@@ -62,14 +62,14 @@ type NegativeKeyword struct {
 
 // GetAllTargetingKeywordsQuery defines query parameter for GetAllTargetingKeywords endpoint.
 type GetAllTargetingKeywordsQuery struct {
-	Limit  int32 `url:"limit,omitempty"`
-	Offset int32 `url:"offset,omitempty"`
+	Limit  int32 `json:"limit,omitempty"`
+	Offset int32 `json:"offset,omitempty"`
 }
 
 // GetAllNegativeKeywordsQuery defines query parameter for GetAllNegativeKeywords endpoint.
 type GetAllNegativeKeywordsQuery struct {
-	Limit  int32 `url:"limit,omitempty"`
-	Offset int32 `url:"offset,omitempty"`
+	Limit  int32 `json:"limit,omitempty"`
+	Offset int32 `json:"offset,omitempty"`
 }
 
 // KeywordUpdateRequest Targeting keyword parameters to use in requests and responses

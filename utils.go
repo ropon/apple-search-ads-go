@@ -36,7 +36,7 @@ func addParamsToQueryRecursive(query url.Values, v reflect.Value) error {
 			continue
 		}
 
-		jsonTag := fieldType.Tag.Get("url")
+		jsonTag := fieldType.Tag.Get("json")
 		paramTag := fieldType.Tag.Get("param")
 
 		if jsonTag == "" || jsonTag == "-" {

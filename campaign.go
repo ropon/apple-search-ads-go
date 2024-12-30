@@ -202,8 +202,8 @@ type LOCInvoiceDetails struct {
 
 // GetAllCampaignQuery defines query parameter for GetAllCampaigns endpoint.
 type GetAllCampaignQuery struct {
-	Limit  int32 `url:"limit" param:"default=10"`
-	Offset int32 `url:"offset"`
+	Limit  int32 `json:"limit" param:"default=10"`
+	Offset int32 `json:"offset"`
 }
 
 // CampaignUpdate is the list of campaign fields that are updatable
