@@ -283,8 +283,8 @@ type LocalityCriteria struct {
 
 // GetAllAdGroupsQuery defines query parameter for GetAllAdGroups endpoint.
 type GetAllAdGroupsQuery struct {
-	Limit  int32 `url:"limit,omitempty"`
-	Offset int32 `url:"offset,omitempty"`
+	Limit  int32 `form:"limit,omitempty"`
+	Offset int32 `form:"offset,omitempty"`
 }
 
 // Selector is the selector objects available to filter returned data

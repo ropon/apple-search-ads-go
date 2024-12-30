@@ -17,10 +17,10 @@ type AppInfo struct {
 
 // SearchAppsQuery defines query parameter for SearchApps endpoint.
 type SearchAppsQuery struct {
-	Limit           int32  `url:"limit,omitempty"`
-	Offset          int32  `url:"offset,omitempty"`
-	Query           string `url:"query,omitempty"`
-	ReturnOwnedApps bool   `url:"returnOwnedApps,omitempty"`
+	Limit           int32  `form:"limit,omitempty"`
+	Offset          int32  `form:"offset,omitempty"`
+	Query           string `form:"query,omitempty"`
+	ReturnOwnedApps bool   `form:"returnOwnedApps,omitempty"`
 }
 
 // AppInfoListResponse is the response details of app search requests
