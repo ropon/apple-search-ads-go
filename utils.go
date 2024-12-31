@@ -62,7 +62,7 @@ func addParamsToQueryRecursive(query url.Values, v reflect.Value) error {
 
 		// 根据字段类型和标签处理参数
 		switch {
-		case field.Kind() == reflect.Slice:
+		case field.Kind() == reflect.Slice, field.Kind() == reflect.Array:
 			if !field.IsZero() {
 				jsonValue, err := json.Marshal(field.Interface())
 				if err != nil {
@@ -86,9 +86,14 @@ func addParamsToQueryRecursive(query url.Values, v reflect.Value) error {
 			if !field.IsZero() {
 				query.Set(jsonName, field.String())
 			}
+		case field.Kind() == reflect.Bool:
+			if !field.IsZero() {
+				query.Set(jsonName, fmt.Sprintf("%v", field.Bool()))
+			}
+		default:
+			panic("unhandled field type")
 		}
 	}
-
 	return nil
 }
 

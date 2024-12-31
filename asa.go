@@ -30,6 +30,7 @@ type Client struct {
 	Keywords          *KeywordService
 	AccessControlList *AccessControlListService
 	App               *AppService
+	Geo               *GeoService
 }
 
 // service 服务
@@ -99,6 +100,7 @@ func NewClient(httpClient interface{}, accessToken ...string) *Client {
 	c.Keywords = (*KeywordService)(&c.common)
 	c.AccessControlList = (*AccessControlListService)(&c.common)
 	c.App = (*AppService)(&c.common)
+	c.Geo = (*GeoService)(&c.common)
 
 	return c
 }
@@ -227,7 +229,45 @@ func (c *Client) get(apiUrl string, resp interface{}, params ...interface{}) err
 }
 
 // post 处理post请求
-func (c *Client) post(url string, resp interface{}, data ...interface{}) error {
+func (c *Client) post(apiUrl string, resp, param interface{}, data ...interface{}) error {
+	// 构建 URL
+	u, err := url.Parse(apiUrl)
+	if err != nil {
+		return err
+	}
+
+	query := u.Query()
+	err = addParamsToQuery(query, param)
+	if err != nil {
+		return err
+	}
+	u.RawQuery = query.Encode()
+	apiUrl = u.String()
+	client, err := c.HttpClient()
+	if err != nil {
+		return err
+	}
+	if len(data) > 0 {
+		postData := data[0]
+		bS, err := json.Marshal(postData)
+		if err != nil {
+			return err
+		}
+		res, err := client.Post(apiUrl, string(bS))
+		if err != nil {
+			return err
+		}
+		return c.rawJson(res, resp)
+	}
+	res, err := client.Post(apiUrl, data...)
+	if err != nil {
+		return err
+	}
+	return c.rawJson(res, resp)
+}
+
+// postWithQuery 处理带query的post请求
+func (c *Client) postWithQuery(url string, resp interface{}, data ...interface{}) error {
 	client, err := c.HttpClient()
 	if err != nil {
 		return err
