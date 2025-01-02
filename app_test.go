@@ -46,3 +46,38 @@ func TestSearchApps(t *testing.T) {
 	}
 	fmt.Printf("%#v\n", res.AppInfos)
 }
+
+// go test -v -run TestFindAppEligibilityRecords
+func TestFindAppEligibilityRecords(t *testing.T) {
+	t.Parallel()
+
+	client, err := initClient()
+	if err != nil {
+		t.Errorf("Error: %v", err)
+		return
+	}
+
+	res, err := client.App.FindAppEligibilityRecords(6475335980, &Selector{
+		Conditions: []*Condition{
+			{
+				Field:    "countryOrRegion",
+				Operator: "IN",
+				Values:   []string{"US", "MX"},
+			},
+			{
+				Field:    "supplySource",
+				Operator: "EQUALS",
+				Values:   []string{"APPSTORE_TODAY_TAB"},
+			},
+		},
+		Pagination: &Pagination{
+			Limit:  10,
+			Offset: 0,
+		},
+	})
+	if err != nil {
+		t.Errorf("Error: %v", err)
+		return
+	}
+	fmt.Printf("%#v\n", res.EligibilityRecords)
+}
