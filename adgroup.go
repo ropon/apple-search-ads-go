@@ -163,7 +163,7 @@ type AdGroup struct {
 	CreationTime           DateTime             `json:"creationTime,omitempty"`
 	DefaultBidAmount       *Money               `json:"defaultBidAmount,omitempty"`
 	Deleted                bool                 `json:"deleted,omitempty"`
-	DisplayStatus          AdGroupDisplayStatus `json:"displayStatus"`
+	DisplayStatus          AdGroupDisplayStatus `json:"displayStatus,omitempty"`
 	EndTime                *DateTime            `json:"endTime,omitempty"`
 	ID                     int64                `json:"id,omitempty"`
 	ModificationTime       DateTime             `json:"modificationTime,omitempty"`
@@ -193,7 +193,7 @@ type TargetingDimensions struct {
 	AdminArea      *AdminAreaCriteria     `json:"adminArea,omitempty"`
 	Age            *AgeCriteria           `json:"age,omitempty"`
 	AppCategories  *AppCategoryCriteria   `json:"appCategories,omitempty"`
-	AppDownloaders *AppDownloaderCriteria `json:"appDownloaders"`
+	AppDownloaders *AppDownloaderCriteria `json:"appDownloaders,omitempty"`
 	Country        *CountryCriteria       `json:"country,omitempty"`
 	DayPart        *DayPartCriteria       `json:"daypart,omitempty"`
 	DeviceClass    *DeviceClassCriteria   `json:"deviceClass,omitempty"`

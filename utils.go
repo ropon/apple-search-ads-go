@@ -83,7 +83,7 @@ func addParamsToQueryRecursive(query url.Values, v reflect.Value) error {
 				query.Set(jsonName, strconv.FormatInt(field.Int(), 10))
 			}
 		case field.Kind() == reflect.String:
-			if !field.IsZero() {
+			if !field.IsZero() && field.String() != "" {
 				query.Set(jsonName, field.String())
 			}
 		case field.Kind() == reflect.Bool:

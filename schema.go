@@ -94,7 +94,7 @@ type DateTime struct {
 // MarshalJSON is a custom marshaller for date-times.
 func (d DateTime) MarshalJSON() ([]byte, error) {
 	if d.Time.IsZero() {
-		return json.Marshal(nil)
+		return []byte("null"), nil
 	}
 	return json.Marshal(d.Time.Format(customISO8601Format))
 }
