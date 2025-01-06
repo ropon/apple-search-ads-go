@@ -338,9 +338,9 @@ type AdGroupUpdateRequest struct {
 //
 // https://developer.apple.com/documentation/apple_search_ads/adgroupresponse
 type AdGroupResponse struct {
-	AdGroup    *AdGroup          `json:"data,omitempty"`
-	Error      *APIErrorResponse `json:"error,omitempty"`
-	Pagination *PageDetail       `json:"pagination,omitempty"`
+	AdGroup    *AdGroup           `json:"data,omitempty"`
+	Error      *ErrorResponseBody `json:"error,omitempty"`
+	Pagination *PageDetail        `json:"pagination,omitempty"`
 }
 
 // AdGroupListResponse is the response details of ad group requests
