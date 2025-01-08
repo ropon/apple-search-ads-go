@@ -80,8 +80,8 @@ type KeywordUpdateRequest struct {
 	BidAmount        *Money           `json:"bidAmount,omitempty"`
 	Deleted          bool             `json:"deleted,omitempty"`
 	ID               int64            `json:"id,omitempty"`
-	MatchType        KeywordMatchType `json:"matchType"`
-	ModificationTime DateTime         `json:"modificationTime"`
+	MatchType        KeywordMatchType `json:"matchType,omitempty"`
+	ModificationTime DateTime         `json:"modificationTime,omitempty"`
 }
 
 // KeywordListResponse defines model for Keyword List Response.

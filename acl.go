@@ -53,14 +53,14 @@ const (
 //
 // https://developer.apple.com/documentation/apple_search_ads/useracl
 type UserACL struct {
-	Currency     string                   `json:"currency"`
-	DisplayName  string                   `json:"displayName"`
-	OrgID        int64                    `json:"orgId"`
-	OrgName      string                   `json:"orgName"`
-	ParentOrgID  int64                    `json:"parentOrgId"`
+	Currency     string                   `json:"currency,omitempty"`
+	DisplayName  string                   `json:"displayName,omitempty"`
+	OrgID        int64                    `json:"orgId,omitempty"`
+	OrgName      string                   `json:"orgName,omitempty"`
+	ParentOrgID  int64                    `json:"parentOrgId,omitempty"`
 	PaymentModel PaymentModel             `json:"paymentModel,omitempty"`
-	RoleNames    []UserACLRoleName        `json:"roleNames"`
-	TimeZone     ReportingRequestTimeZone `json:"timeZone"`
+	RoleNames    []UserACLRoleName        `json:"roleNames,omitempty"`
+	TimeZone     ReportingRequestTimeZone `json:"timeZone,omitempty"`
 }
 
 // ErrorResponseItem is the error response details in the response body
@@ -83,9 +83,9 @@ type ErrorResponseBody struct {
 //
 // https://developer.apple.com/documentation/apple_search_ads/pagedetail
 type PageDetail struct {
-	TotalResults int `json:"totalResults"`
-	StartIndex   int `json:"startIndex"`
-	ItemsPerPage int `json:"itemsPerPage"`
+	TotalResults int `json:"totalResults,omitempty"`
+	StartIndex   int `json:"startIndex,omitempty"`
+	ItemsPerPage int `json:"itemsPerPage,omitempty"`
 }
 
 // UserACLListResponse is a container for ACL call responses

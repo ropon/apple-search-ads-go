@@ -223,8 +223,8 @@ type CampaignUpdate struct {
 //
 // https://developer.apple.com/documentation/apple_search_ads/updatecampaignrequest
 type UpdateCampaignRequest struct {
-	Campaign                                 *CampaignUpdate `json:"campaign"`
-	ClearGeoTargetingOnCountryOrRegionChange bool            `json:"clearGeoTargetingOnCountryOrRegionChange"`
+	Campaign                                 *CampaignUpdate `json:"campaign,omitempty"`
+	ClearGeoTargetingOnCountryOrRegionChange bool            `json:"clearGeoTargetingOnCountryOrRegionChange,omitempty"`
 }
 
 // CampaignListResponse is the response details of campaign requests

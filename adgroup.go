@@ -182,8 +182,8 @@ type AdGroup struct {
 //
 // https://developer.apple.com/documentation/apple_search_ads/money
 type Money struct {
-	Amount   string `json:"amount"`
-	Currency string `json:"currency"`
+	Amount   string `json:"amount,omitempty"`
+	Currency string `json:"currency,omitempty"`
 }
 
 // TargetingDimensions is the criteria to use with ad groups to narrow the audience that views the ads
@@ -310,16 +310,16 @@ type Condition struct {
 //
 // https://developer.apple.com/documentation/apple_search_ads/sorting
 type Sorting struct {
-	Field     string    `json:"field"`
-	SortOrder SortOrder `json:"sortOrder"`
+	Field     string    `json:"field,omitempty"`
+	SortOrder SortOrder `json:"sortOrder,omitempty"`
 }
 
 // Pagination is the procedure to refine returned results using limit and offset parameters
 //
 // https://developer.apple.com/documentation/apple_search_ads/pagination
 type Pagination struct {
-	Limit  uint32 `json:"limit"`
-	Offset uint32 `json:"offset"`
+	Limit  uint32 `json:"limit,omitempty"`
+	Offset uint32 `json:"offset,omitempty"`
 }
 
 // AdGroupUpdateRequest https://developer.apple.com/documentation/apple_search_ads/adgroupupdate

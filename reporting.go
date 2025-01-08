@@ -216,9 +216,9 @@ type ReportingRequest struct {
 	Granularity                ReportingRequestGranularity `json:"granularity,omitempty"`
 	TimeZone                   ReportingRequestTimeZone    `json:"timeZone,omitempty"`
 	GroupBy                    []ReportingRequestGroupBy   `json:"groupBy,omitempty"`
-	ReturnGrandTotals          bool                        `json:"returnGrandTotals"`
-	ReturnRecordsWithNoMetrics bool                        `json:"returnRecordsWithNoMetrics"`
-	ReturnRowTotals            bool                        `json:"returnRowTotals"`
+	ReturnGrandTotals          bool                        `json:"returnGrandTotals,omitempty"`
+	ReturnRecordsWithNoMetrics bool                        `json:"returnRecordsWithNoMetrics,omitempty"`
+	ReturnRowTotals            bool                        `json:"returnRowTotals,omitempty"`
 	Selector                   *Selector                   `json:"selector,omitempty"`
 }
 
