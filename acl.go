@@ -105,9 +105,9 @@ type APIErrorResponse struct {
 }
 
 type BaseResponse struct {
-	Data       interface{}       `json:"data,omitempty"`
-	Pagination *PageDetail       `json:"pagination,omitempty"`
-	Error      *APIErrorResponse `json:"error,omitempty"`
+	Data       interface{}        `json:"data,omitempty"`
+	Pagination *PageDetail        `json:"pagination,omitempty"`
+	Error      *ErrorResponseBody `json:"error,omitempty"`
 }
 
 // GetUserACL Fetches roles and organizations that the API has access to
