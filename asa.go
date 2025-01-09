@@ -175,13 +175,11 @@ func (c *Client) HttpClient() (*requests.Request, error) {
 
 	// 如果有auth配置,需要设置认证头
 	if c.auth != nil {
-		token, err := c.auth.jwtGenerator.AccessToken()
+		var err error
+		c.client, err = c.auth.Client()
 		if err != nil {
 			return nil, err
 		}
-		c.client.SetHeader("Authorization", fmt.Sprintf("Bearer %s", token))
-		// auth方式的orgID通过auth对象获取
-		c.client.SetHeader("X-AP-Context", fmt.Sprintf("orgId=%d", c.auth.orgID))
 	}
 	// 注意:非auth方式的orgID已经在SetOrgID中设置了header,这里不需要重复设置
 	return c.client, nil
