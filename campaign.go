@@ -140,24 +140,52 @@ const (
 // CampaignCountryOrRegionServingStateReasons is the reasons why a campaign can’t run
 //
 // https://developer.apple.com/documentation/apple_search_ads/campaign/countryorregionservingstatereasons
-type CampaignCountryOrRegionServingStateReasons map[string]CampaignCountryOrRegionServingStateReason
+type CampaignCountryOrRegionServingStateReasons map[string][]CampaignCountryOrRegionServingStateReason
 
 // CampaignCountryOrRegionServingStateReason is a reason that returns when a campaign can’t run for a specified country or region.
 type CampaignCountryOrRegionServingStateReason string
 
 const (
+	// CampaignCountryOrRegionServingStateReasonAccountDocApprovalExpired is for a campaign country or region serving state reason on ACCOUNT_DOC_APPROVAL_EXPIRED.
+	CampaignCountryOrRegionServingStateReasonAccountDocApprovalExpired CampaignCountryOrRegionServingStateReason = "ACCOUNT_DOC_APPROVAL_EXPIRED"
+	// CampaignCountryOrRegionServingStateReasonAccountDocApprovalInfected is for a campaign country or region serving state reason on ACCOUNT_DOC_APPROVAL_INFECTED.
+	CampaignCountryOrRegionServingStateReasonAccountDocApprovalInfected CampaignCountryOrRegionServingStateReason = "ACCOUNT_DOC_APPROVAL_INFECTED"
+	// CampaignCountryOrRegionServingStateReasonAccountDocApprovalNotSubmitted is for a campaign country or region serving state reason on ACCOUNT_DOC_APPROVAL_NOT_SUBMITTED.
+	CampaignCountryOrRegionServingStateReasonAccountDocApprovalNotSubmitted CampaignCountryOrRegionServingStateReason = "ACCOUNT_DOC_APPROVAL_NOT_SUBMITTED"
+	// CampaignCountryOrRegionServingStateReasonAccountDocApprovalPending is for a campaign country or region serving state reason on ACCOUNT_DOC_APPROVAL_PENDING.
+	CampaignCountryOrRegionServingStateReasonAccountDocApprovalPending CampaignCountryOrRegionServingStateReason = "ACCOUNT_DOC_APPROVAL_PENDING"
+	// CampaignCountryOrRegionServingStateReasonAccountDocApprovalRejected is for a campaign country or region serving state reason on ACCOUNT_DOC_APPROVAL_REJECTED.
+	CampaignCountryOrRegionServingStateReasonAccountDocApprovalRejected CampaignCountryOrRegionServingStateReason = "ACCOUNT_DOC_APPROVAL_REJECTED"
+	// CampaignCountryOrRegionServingStateReasonAppContentRejected is for a campaign country or region serving state reason on APP_CONTENT_REJECTED.
+	CampaignCountryOrRegionServingStateReasonAppContentRejected CampaignCountryOrRegionServingStateReason = "APP_CONTENT_REJECTED"
+	// CampaignCountryOrRegionServingStateReasonAppContentReviewPending is for a campaign country or region serving state reason on APP_CONTENT_REVIEW_PENDING.
+	CampaignCountryOrRegionServingStateReasonAppContentReviewPending CampaignCountryOrRegionServingStateReason = "APP_CONTENT_REVIEW_PENDING"
+	// CampaignCountryOrRegionServingStateReasonAppDocApprovalExpired is for a campaign country or region serving state reason on APP_DOC_APPROVAL_EXPIRED.
+	CampaignCountryOrRegionServingStateReasonAppDocApprovalExpired CampaignCountryOrRegionServingStateReason = "APP_DOC_APPROVAL_EXPIRED"
+	// CampaignCountryOrRegionServingStateReasonAppDocApprovalInfected is for a campaign country or region serving state reason on APP_DOC_APPROVAL_INFECTED.
+	CampaignCountryOrRegionServingStateReasonAppDocApprovalInfected CampaignCountryOrRegionServingStateReason = "APP_DOC_APPROVAL_INFECTED"
+	// CampaignCountryOrRegionServingStateReasonAppDocApprovalNotSubmitted is for a campaign country or region serving state reason on APP_DOC_APPROVAL_NOT_SUBMITTED.
+	CampaignCountryOrRegionServingStateReasonAppDocApprovalNotSubmitted CampaignCountryOrRegionServingStateReason = "APP_DOC_APPROVAL_NOT_SUBMITTED"
+	// CampaignCountryOrRegionServingStateReasonAppDocApprovalPending is for a campaign country or region serving state reason on APP_DOC_APPROVAL_PENDING.
+	CampaignCountryOrRegionServingStateReasonAppDocApprovalPending CampaignCountryOrRegionServingStateReason = "APP_DOC_APPROVAL_PENDING"
+	// CampaignCountryOrRegionServingStateReasonAppDocApprovalRejected is for a campaign country or region serving state reason on APP_DOC_APPROVAL_REJECTED.
+	CampaignCountryOrRegionServingStateReasonAppDocApprovalRejected CampaignCountryOrRegionServingStateReason = "APP_DOC_APPROVAL_REJECTED"
 	// CampaignCountryOrRegionServingStateReasonAppNotEligible is for a campaign country or region serving state reason on APP_NOT_ELIGIBLE.
 	CampaignCountryOrRegionServingStateReasonAppNotEligible CampaignCountryOrRegionServingStateReason = "APP_NOT_ELIGIBLE"
 	// CampaignCountryOrRegionServingStateReasonAppNotEligibleSearchAds is for a campaign country or region serving state reason on APP_NOT_ELIGIBLE_SEARCHADS.
 	CampaignCountryOrRegionServingStateReasonAppNotEligibleSearchAds CampaignCountryOrRegionServingStateReason = "APP_NOT_ELIGIBLE_SEARCHADS"
+	// CampaignCountryOrRegionServingStateReasonAppNotEligibleSupplySource is for a campaign country or region serving state reason on APP_NOT_ELIGIBLE_SUPPLY_SOURCE.
+	CampaignCountryOrRegionServingStateReasonAppNotEligibleSupplySource CampaignCountryOrRegionServingStateReason = "APP_NOT_ELIGIBLE_SUPPLY_SOURCE"
 	// CampaignCountryOrRegionServingStateReasonAppNotPublishedYet is for a campaign country or region serving state reason on APP_NOT_PUBLISHED_YET.
 	CampaignCountryOrRegionServingStateReasonAppNotPublishedYet CampaignCountryOrRegionServingStateReason = "APP_NOT_PUBLISHED_YET"
-	// CampaignCountryOrRegionServingStateReasonSapinLawAgentUnknown is for a campaign country or region serving state reason on SAPIN_LAW_AGENT_UNKNOWN.
-	CampaignCountryOrRegionServingStateReasonSapinLawAgentUnknown CampaignCountryOrRegionServingStateReason = "SAPIN_LAW_AGENT_UNKNOWN"
-	// CampaignCountryOrRegionServingStateReasonSapinLawFrenchBizUnknown is for a campaign country or region serving state reason on SAPIN_LAW_FRENCH_BIZ_UNKNOWN.
-	CampaignCountryOrRegionServingStateReasonSapinLawFrenchBizUnknown CampaignCountryOrRegionServingStateReason = "SAPIN_LAW_FRENCH_BIZ_UNKNOWN"
+	// CampaignCountryOrRegionServingStateReasonFeatureNotAvailableInCountryOrRegion is for a campaign country or region serving state reason on FEATURE_NOT_AVAILABLE_IN_COUNTRY_OR_REGION.
+	CampaignCountryOrRegionServingStateReasonFeatureNotAvailableInCountryOrRegion CampaignCountryOrRegionServingStateReason = "FEATURE_NOT_AVAILABLE_IN_COUNTRY_OR_REGION"
+	// CampaignCountryOrRegionServingStateReasonSapinLawAgentUnknown is for a campaign country or region serving state reason on SAPIN_LAW_AGENT
+	CampaignCountryOrRegionServingStateReasonSapinLawAgentUnknown CampaignCountryOrRegionServingStateReason = "SAPIN_LAW_AGENT"
 	// CampaignCountryOrRegionServingStateReasonSapinLawFrenchBiz is for a campaign country or region serving state reason on SAPIN_LAW_FRENCH_BIZ.
 	CampaignCountryOrRegionServingStateReasonSapinLawFrenchBiz CampaignCountryOrRegionServingStateReason = "SAPIN_LAW_FRENCH_BIZ"
+	// CampaignCountryOrRegionServingStateReasonSapinLawFrenchBizUnknown is for a campaign country or region serving state reason on SAPIN_LAW_FRENCH_BIZ_UNKNOWN.
+	CampaignCountryOrRegionServingStateReasonSapinLawFrenchBizUnknown CampaignCountryOrRegionServingStateReason = "SAPIN_LAW_FRENCH_BIZ_UNKNOWN"
 )
 
 // Campaign is the response to a request to create and fetch campaigns
