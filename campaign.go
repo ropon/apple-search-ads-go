@@ -210,13 +210,13 @@ type GetAllCampaignQuery struct {
 //
 // https://developer.apple.com/documentation/apple_search_ads/campaignupdate
 type CampaignUpdate struct {
-	BudgetAmount       *Money            `json:"budgetAmount,omitempty"`
-	BudgetOrders       int64             `json:"budgetOrders,omitempty"`
-	CountriesOrRegions []string          `json:"countriesOrRegions,omitempty"`
-	DailyBudgetAmount  *Money            `json:"dailyBudgetAmount,omitempty"`
-	LOCInvoiceDetails  LOCInvoiceDetails `json:"locInvoiceDetails,omitempty"`
-	Name               string            `json:"name,omitempty"`
-	Status             *CampaignStatus   `json:"status,omitempty"`
+	BudgetAmount       *Money             `json:"budgetAmount,omitempty"`
+	BudgetOrders       int64              `json:"budgetOrders,omitempty"`
+	CountriesOrRegions []string           `json:"countriesOrRegions,omitempty"`
+	DailyBudgetAmount  *Money             `json:"dailyBudgetAmount,omitempty"`
+	LOCInvoiceDetails  *LOCInvoiceDetails `json:"locInvoiceDetails,omitempty"`
+	Name               string             `json:"name,omitempty"`
+	Status             *CampaignStatus    `json:"status,omitempty"`
 }
 
 // UpdateCampaignRequest is the payload properties to clear Geo Targeting from a campaign
